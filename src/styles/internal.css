@@ -87,43 +87,81 @@
 }
 
 .s-spiderman-01-01{
-    background-image: url("../images/spiderman-tobey/movie-01/background.png");
+    background-image: url("../../public/assets/images/spiderman-tobey/movie-01/background.png");
     background-size: cover;
 }
 
 .s-spiderman-01-02{
-    background-image: url("../images/spiderman-tobey/movie-02/background.png");
+    background-image: url("../../public/assets/images/spiderman-tobey/movie-02/background.png");
     background-size: cover;
 }
 
 .s-spiderman-01-03{
-    background-image: url("../images/spiderman-tobey/movie-03/background.png");
+    background-image: url("../../public/assets/images/spiderman-tobey/movie-03/background.png");
     background-size: cover;
 }
 
 .s-spiderman-02-01{
-    background-image: url("../images/spiderman-andrew/movie-01/background.png");
+    background-image: url("../../public/assets/images/spiderman-andrew/movie-01/background.png");
     background-size: cover;
 }
 
 .s-spiderman-02-02{
-    background-image: url("../images/spiderman-andrew/movie-02/background.png");
+    background-image: url("../../public/assets/images/spiderman-andrew/movie-02/background.png");
     background-size: cover;
 }
 
 .s-spiderman-03-01{
-    background-image: url("../images/spiderman-tom/movie-01/background.png");
+    background-image: url("../../public/assets/images/spiderman-tom/movie-01/background.png");
     background-size: cover;
 }
 
 .s-spiderman-03-02{
-    background-image: url("../images/spiderman-tom/movie-02/background.png");
+    background-image: url("../../public/assets/images/spiderman-tom/movie-02/background.png");
     background-size: cover;
 }
 
 .s-spiderman-03-03{
-    background-image: url("../images/spiderman-tom/movie-03/background.png");
+    background-image: url("../../public/assets/images/spiderman-tom/movie-03/background.png");
     background-size: cover;
+}
+
+.navigator ul li button {
+    background: transparent;
+    border: none;
+    font-family: 'Spider Man', sans-serif;
+    font-size: 3rem;
+    font-weight: 100;
+    color: #fff;
+    cursor: pointer;
+    transition: color .3s ease-in-out;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.navigator ul li button:hover{
+    color: #ff0000;
+}
+
+.navigator ul li button.active-movie-button {
+    color: #ff0000;
+}
+
+.navigator ul li button.active-movie-button::before {
+    content: '';
+    position: absolute;
+
+    border: 1px solid #ff0000;
+    border-radius: 50%;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /* Para telas de até 900px de largura */
