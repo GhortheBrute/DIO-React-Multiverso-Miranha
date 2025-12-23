@@ -12,6 +12,25 @@ export default function Carousel() {
     // rotateYDeg = -120 * (selectedItem -1)
     const rotateY = -120 * (selectedIndex - 1);
 
+    // 1. Função que roda quando o mouse entra no card
+    const handleMouseEnter = (id, controllerId) => {
+        // Muda o ID do body para ativar o CSS do fundo gigante.
+        document.body.id = `${controllerId}--hovered`;
+
+        // Adiciona a classe de hover manualmente no card específico.
+        const card = document.getElementById(id);
+        if (card) card.classList.add('s-card--hovered');
+    }
+
+    // 2. Função que roda quando o mouse sai do card
+    const handleMouseLeave = (id) => {
+        document.body.id = '';
+
+        // Remove a classe de hover
+        const card = document.getElementById(id);
+        if (card) card.classList.remove('s-card--hovered');
+    }
+
     return (
         <div>
             <div className="s-container">
@@ -20,16 +39,20 @@ export default function Carousel() {
                     // Aplicamos o estilo dinamicamente, aqui.
                     style={{transform: `translateZ(-40vw) rotateY(${rotateY}deg)`}}
                 >
-                    <Link
-                        key={spider.id}
-                        href={`/hero/${spider.id}`}
-                        className="s-card"
-                        id={spider.id}
-                        >
-                        <img className="s-card__background" src={spider.background} alt={spider.name}/>
-                        <img className="s-card__image" src={spider.image} alt={spider.name}/>
-                        <h2 className="s-card__title">{spider.name}</h2>
-                    </Link>
+                    {spidersData.map(spider => (
+                        <Link
+                            key={spider.id}
+                            href={`/hero/${spider.id}`}
+                            className="s-card"
+                            id={spider.id}
+                            onMouseEnter={() => handleMouseEnter(spider.id, spider.controllerId)}
+                            onMouseLeave={() => handleMouseLeave(spider.id)}
+                            >
+                            <img className="s-card__background" src={spider.background} alt={spider.name}/>
+                            <img className="s-card__image" src={spider.image} alt={spider.name}/>
+                            <h2 className="s-card__title">{spider.name}</h2>
+                        </Link>
+                    ))}
                 </div>
             </div>
             <div className="s-controller">
