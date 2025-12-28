@@ -1,23 +1,44 @@
+import Link from 'next/link';
+import { spidersData } from '@/data/spiders';
+
 export default function Navigator() {
     return (
         <nav className="s-menu">
+
+            {/* 1. Lista da Esquerda (Home + Primeiro Aranha) */}
             <ul>
                 <li className="s-menu__item">
-                    <a href="/">Página Inicial</a>
+                    <Link href="/">Página Inicial</Link>
                 </li>
-                <li className="s-menu__item">
-                    <a href="./pages/tobey-maguire/spiderman1.html">Tobey Maguire</a>
-                </li>
-                <li className="s-menu__item s-menu__icon">
-                    <img src="./assets/images/icons/spider.svg" alt="logo spider"/>
-                </li>
-                <li className="s-menu__item">
-                    <a href="./pages/tom-holland/spiderman1.html">Tom Holland</a>
-                </li>
-                <li className="s-menu__item">
-                    <a href="./pages/andrew-garfield/spiderman1.html">Andrew Garfield</a>
-                </li>
+                {/* Pegamos apenas o primeiro aranha (Tobey) */}
+                {spidersData.length > 0 && (
+                    <li className="s-menu__item">
+                        <Link href={`/hero/${spidersData[0].id}`}>
+                            {spidersData[0].name}
+                        </Link>
+                    </li>
+                )}
             </ul>
+
+            {/* 2. O Ícone no Centro */}
+            <div className="s-menu__icon">
+                <Link href="/">
+                    <img src="/assets/images/icons/spider.svg" alt="Spider-Man Icon" />
+                </Link>
+            </div>
+
+            {/* 3. Lista da Direita (Restante dos Aranhas) */}
+            <ul>
+                {/* Pegamos do segundo aranha em diante (Tom, Andrew...) */}
+                {spidersData.slice(1).map((spider) => (
+                    <li key={spider.id} className="s-menu__item">
+                        <Link href={`/hero/${spider.id}`}>
+                            {spider.name}
+                        </Link>
+                    </li>
+                ))}
+            </ul>
+
         </nav>
     );
 }

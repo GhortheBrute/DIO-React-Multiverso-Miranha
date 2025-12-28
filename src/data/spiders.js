@@ -16,9 +16,18 @@ export const spidersData = [
                 trailer: 'https://www.youtube.com/watch?v=TYMMOjBUPMM',
                 logo: '/assets/images/spiderman-tobey/movie-01/logo.png',
                 gallery: [
-                    '/assets/images/spiderman-tobey/movie-01/gallery/image-01.png',
-                    '/assets/images/spiderman-tobey/movie-01/gallery/image-02.png',
-                    '/assets/images/spiderman-tobey/movie-01/gallery/image-03.png',
+                    {
+                        thumb: '/assets/images/spiderman-tobey/movie-01/gallery/image-01.png',
+                        full: '/assets/images/spiderman-tobey/movie-01/gallery/image-01-full.jpg'
+                    },
+                    {
+                        thumb: '/assets/images/spiderman-tobey/movie-01/gallery/image-02.png',
+                        full: '/assets/images/spiderman-tobey/movie-01/gallery/image-02-full.jpg'
+                    },
+                    {
+                        thumb: '/assets/images/spiderman-tobey/movie-01/gallery/image-03.png',
+                        full: '/assets/images/spiderman-tobey/movie-01/gallery/image-03-full.jpg'
+                    },
                 ]
             },
             {

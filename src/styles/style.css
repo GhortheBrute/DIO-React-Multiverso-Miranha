@@ -24,6 +24,13 @@ body::before{
     position: relative;
 }
 
+.s-menu ul {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .s-menu__item {
     display: inline-block;
     text-transform: uppercase;
@@ -34,6 +41,7 @@ body::before{
     width: 2.5rem;
     margin: 0 1.25rem;
     vertical-align: middle;
+    display: inline-block;
 }
 
 .s-container {

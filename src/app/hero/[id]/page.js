@@ -1,11 +1,13 @@
 'use client';
 
-import { useState, use } from "react";
+import { useState, use, useEffect } from "react";
 import { spidersData } from "@/data/spiders";
 import Link from 'next/link';
 
 // Importar o CSS específico das páginas internas
 import '@/styles/internal.css';
+import { Fancybox } from "@fancyapps/ui";
+import "@fancyapps/ui/dist/fancybox/fancybox.css";
 
 export default function HeroPage({ params }) {
     // CORREÇÃO AQUI: Removemos o .id do final.
@@ -18,6 +20,24 @@ export default function HeroPage({ params }) {
 
     // Estado para controlar qual filme está selecionado (começando sempre com o primeiro)
     const [activeMovieIndex, setActiveMovieIndex] = useState(0);
+
+    // Este bloco liga o Fancybox assim que a tela carrega ou muda de filme
+    useEffect(() => {
+        Fancybox.bind("[data-fancybox]", {
+            buttons: ["zoom", "slideShow", "fullScreen"],
+            closeButton: "top",
+            Html: {
+                video: {
+                    autoplay: true,
+                },
+            },
+        });
+
+        // Limpeza: destrói o Fancybox quando saímos da página.
+        return () => {
+            Fancybox.destroy();
+        }
+    }, [activeMovieIndex]);
 
     // Se não achar o herói, mostra mensagem (verifique se os IDs no spiders.js são 'tobey-maguire', etc)
     if (!hero) {
@@ -44,14 +64,6 @@ export default function HeroPage({ params }) {
                                     // Adiciona a classe 'active' se for o filme atual
                                     className={index === activeMovieIndex ? 'active-movie-button' : ''}
                                     onClick={() => setActiveMovieIndex(index)}
-                                    style={{
-                                        color: index === activeMovieIndex ? 'red' : 'white',
-                                        background: 'transparent',
-                                        border: 'none',
-                                        cursor: 'pointer',
-                                        fontSize: '1.5rem',
-                                        fontWeight: 'bold'
-                                    }}
                                 >
                                     0{index + 1}
                                 </button>
@@ -61,7 +73,7 @@ export default function HeroPage({ params }) {
                 </nav>
             </div>
 
-            <div className={`s-main-content s-${hero.controllerId}-01`}>
+            <div className={`s-main-content s-${hero.controllerId}-0${activeMovieIndex + 1}`}>
                 <div className="s-main-content__top">
                     <div className="s-logo">
                         <img src={activeMovie.logo} alt={activeMovie.title} title={activeMovie.title}/>
@@ -82,7 +94,11 @@ export default function HeroPage({ params }) {
                     <div className="s-links">
                         <ul>
                             <li>
-                                <a href={activeMovie.trailer} className="link-button" target="_blank" rel="noopener noreferrer">
+                                <a
+                                    href={activeMovie.trailer}
+                                    className="link-button"
+                                    data-fancybox
+                                >
                                     <span className="icon">
                                         <div className="play-icon">&nbsp;</div>
                                     </span>
@@ -97,11 +113,22 @@ export default function HeroPage({ params }) {
                     <div className="gallery">
                         <ul>
                             {/* Mapeia a galeria do filme atual */}
-                            {activeMovie.gallery.map((image, index) => (
-                                <li key={index}>
-                                    <img src={image} alt={`Cena do filme ${activeMovie.title}`}/>
-                                </li>
-                            ))}
+                            {activeMovie.gallery.map((image, index) => {
+                                const imageUrl = typeof image === 'string' ? image : image.thumb;
+                                const fullUrl = typeof image === 'string' ? image : image.full;
+
+                                return (
+                                    <li key={index}>
+                                        <a
+                                            href={fullUrl}
+                                            data-fancybox="gallery"
+                                            data-caption={`Cena do filme ${activeMovie.title} - ${hero.name}`}
+                                        >
+                                            <img src={imageUrl} alt={`Cena do filme ${activeMovie.title}`}/>
+                                        </a>
+                                    </li>
+                                )}
+                            )}
                         </ul>
                     </div>
                 </div>
